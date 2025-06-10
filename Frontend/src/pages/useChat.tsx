@@ -23,6 +23,24 @@ export const useChat = (id_usuario: string) => {
     }
   }, [id_usuario])
 
+  useEffect(() => {
+    const fetchMensajes = async () => {
+      try {
+        const res = await fetch('http://localhost:3333/api/mensajes', {
+          method: 'GET',
+          credentials: 'include'
+        })
+
+        if (!res.ok) throw new Error('Error en la respuesta')
+        const data = await res.json()
+        setMensaje(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchMensajes()
+  }, [])
+
   const enviarMensaje = (contenido: string) => {
     if (!contenido.trim()) return
     const nuevoMensaje: Mensaje = { id_usuario, contenido }

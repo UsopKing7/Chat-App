@@ -10,13 +10,9 @@ export const Chat = ({ id_usuario, username }: Props) => {
   const { mensajes, enviarMensaje } = useChat(id_usuario)
   const [input, setInput] = useState('')
 
-  const handleSubmin = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!input.trim()) {
-      return
-    }
-
+    if (!input.trim()) return
     enviarMensaje(input)
     setInput('')
   }
@@ -30,7 +26,7 @@ export const Chat = ({ id_usuario, username }: Props) => {
           height: 300,
           overflowY: 'auto',
           border: '1px solid #ccc',
-          padding: 10
+          padding: 10,
         }}
       >
         {mensajes.map((m, i) => (
@@ -41,24 +37,20 @@ export const Chat = ({ id_usuario, username }: Props) => {
                 m.id_usuario === id_usuario ? '#daf8cb' : '#f1f0f0',
               marginBottom: 8,
               padding: 6,
-              borderRadius: 4
+              borderRadius: 4,
             }}
           >
-            <strong>
-              {m.id_usuario === id_usuario ? 'Tú' : m.id_usuario}:
-            </strong>{' '}
+            <strong>{m.id_usuario === id_usuario ? 'Tú' : m.id_usuario}:</strong>{' '}
             {m.contenido}
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleSubmin} style={{ marginTop: 10 }}>
+      <form onSubmit={handleSubmit} style={{ marginTop: 10 }}>
         <input
           type="text"
           value={input}
-          onChange={(e) => {
-            setInput(e.target.value)
-          }}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Escribe tu mensaje..."
           style={{ width: '80%', padding: 8 }}
         />
