@@ -4,8 +4,8 @@ use chat_app;
 -- Tabla usuarios
 CREATE TABLE usuarios (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    nickname VARCHAR(50) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
     creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
