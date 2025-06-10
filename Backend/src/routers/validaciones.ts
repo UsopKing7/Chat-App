@@ -42,3 +42,9 @@ export const validacionLogin = z.object({
       message: 'La contraseña debe tener mínimo 8 caracteres'
     })
 })
+
+// validacion para los mensajes
+export const validacionMensajes = z.object({
+  id_usuario: z.string(),
+  contenido: z.string()
+})

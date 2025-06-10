@@ -2,7 +2,16 @@ import { Router, Request, Response } from 'express'
 import { pool } from '../../models/db'
 import bcrypt from 'bcrypt'
 import { validacionLogin, validacionRegister } from '../../routers/validaciones'
-import { Login, Register, SAL, UsuarioConsulta, formatError } from '../../types'
+import {
+  Login,
+  Register,
+  SAL,
+  SECRET,
+  UsuarioConsulta,
+  formatError
+} from '../../types'
+import jwt from 'jsonwebtoken'
+import { verificarToken } from '../../routers/cerifitoken'
 
 export const routerSession = Router()
 
@@ -56,7 +65,10 @@ routerSession.post('/login', async (req: Request, res: Response) => {
 
     const usuario = usuarioExiste[0]
 
-    const verificarPassword = await bcrypt.compare(vLogin.password, usuario.password)
+    const verificarPassword = await bcrypt.compare(
+      vLogin.password,
+      usuario.password
+    )
 
     if (!verificarPassword) {
       res.status(404).json({
@@ -65,14 +77,34 @@ routerSession.post('/login', async (req: Request, res: Response) => {
       return
     }
 
+    const token = jwt.sign(
+      { id: usuario.id, username: usuario.username },
+      SECRET.SECRET,
+      { expiresIn: '1h' }
+    )
+
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60 * 2
+    })
     res.status(200).json({
       message: 'Login exitoso',
-      data: usuario.username
+      data: {
+        username: usuario.username,
+        id: usuario.id
+      },
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: 'Error al iniciar session',
       error: formatError(error)
     })
   }
+})
+
+routerSession.get('/me', verificarToken, (req, res) => {
+  res.json({ user: req.user })
 })

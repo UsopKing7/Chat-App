@@ -40,3 +40,34 @@ interface Port {
 export const PORT: Port = {
   port: Number(process.env.PORT) || 3333
 }
+
+// Interface para validar mensajes
+export interface Mensaje {
+  id_usuario: string,
+  contenido: string
+}
+
+// Interface para el secret
+interface Secret {
+  SECRET: string
+}
+
+export const SECRET: Secret = {
+  SECRET: String(process.env.SECRET)
+}
+
+// interface para req.user
+export interface UsuarioToken {
+  username: string
+  id: string
+  iat: number
+  exp: number
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: UsuarioToken
+    }
+  }
+}
