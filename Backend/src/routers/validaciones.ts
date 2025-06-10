@@ -24,3 +24,21 @@ export const validacionRegister = z.object({
       message: 'La contraseña contiene caracteres no permitidos'
     })
 })
+
+// Validacion para el Login
+export const validacionLogin = z.object({
+  username: z
+    .string({
+      message: 'El username no es válido'
+    })
+    .min(3, {
+      message: 'El nombre de usuario debe tener mínimo 3 caracteres'
+    }),
+  password: z
+    .string({
+      message: 'La contraseña no es válida'
+    })
+    .min(8, {
+      message: 'La contraseña debe tener mínimo 8 caracteres'
+    })
+})

@@ -1,15 +1,15 @@
 import { Router, Request, Response } from 'express'
 import { pool } from '../../models/db'
-import bcypt from 'bcrypt'
-import { validacionRegister } from '../../routers/validaciones'
-import { Register, SAL, UsuarioConsulta, formatError } from '../../types'
+import bcrypt from 'bcrypt'
+import { validacionLogin, validacionRegister } from '../../routers/validaciones'
+import { Login, Register, SAL, UsuarioConsulta, formatError } from '../../types'
 
 export const routerSession = Router()
 
 routerSession.post('/register', async (req: Request, res: Response) => {
   try {
     const vRegistro: Register = validacionRegister.parse(req.body)
-    const hashPassword = await bcypt.hash(vRegistro.password, SAL.sal)
+    const hashPassword = await bcrypt.hash(vRegistro.password, SAL.sal)
 
     const [usuarioExiste] = await pool.query<UsuarioConsulta[]>(
       'SELECT * FROM usuarios WHERE username = ?',
@@ -41,7 +41,7 @@ routerSession.post('/register', async (req: Request, res: Response) => {
 
 routerSession.post('/login', async (req: Request, res: Response) => {
   try {
-    const vLogin: Register = validacionRegister.parse(req.body)
+    const vLogin: Login = validacionLogin.parse(req.body)
     const [usuarioExiste] = await pool.query<UsuarioConsulta[]>(
       'SELECT * FROM usuarios WHERE username = ?',
       [vLogin.username]
@@ -56,7 +56,7 @@ routerSession.post('/login', async (req: Request, res: Response) => {
 
     const usuario = usuarioExiste[0]
 
-    const verificarPassword = await bcypt.compare(vLogin.password, usuario.password)
+    const verificarPassword = await bcrypt.compare(vLogin.password, usuario.password)
 
     if (!verificarPassword) {
       res.status(404).json({
@@ -66,7 +66,8 @@ routerSession.post('/login', async (req: Request, res: Response) => {
     }
 
     res.status(200).json({
-      message: 'Login exitoso'
+      message: 'Login exitoso',
+      data: usuario.username
     })
   } catch (error) {
     res.status(500).json({

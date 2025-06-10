@@ -6,6 +6,12 @@ export interface Register {
   password: string
 }
 
+// Interface para el Login
+export interface Login {
+  username: string
+  password: string
+}
+
 // Interface para la consulta de usuarios
 export interface UsuarioConsulta extends RowDataPacket{
   id: `${string}-${string}-${string}-${string}-${string}`
