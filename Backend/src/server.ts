@@ -64,7 +64,7 @@ io.on('connection', async (socket) => {
 
   socket.on('chat:mensaje', async (msj) => {
     try {
-      await guardarMensaje(msj.id_usuario, msj.id_contenido)
+      await guardarMensaje(msj.id_usuario, msj.contenido)
       io.emit('chat:mensaje', msj)
     } catch (error) {
       console.log('Error guardando mensaje:', error)
