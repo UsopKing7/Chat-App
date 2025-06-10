@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                     // Mejor compatibilidad moderna
+    "module": "commonjs",                   // Para Node.js con require
+    "lib": ["ES2020"],                      // Librerías modernas disponibles
+    "esModuleInterop": true,                // Para importar módulos CommonJS (como Express o ws)
+    "moduleResolution": "node",             // Resolución estilo Node.js
+    "outDir": "./build",                    // Carpeta de salida compilada
+    "rootDir": "./src",                     // Carpeta fuente
+    "strict": true,                         // Habilita todas las comprobaciones estrictas
+    "noImplicitAny": true,                  // Obliga a tipar todo (evita errores ocultos)
+    "strictNullChecks": true,               // Evita problemas con `null` y `undefined`
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,                   // Acelera compilación
+    "resolveJsonModule": true,              // Para importar JSONs
+    "allowSyntheticDefaultImports": true,   // Importación amigable
+    "sourceMap": true,                      // Para debugging con VSCode
+    "noFallthroughCasesInSwitch": true,     // Evita errores en switches
+    "noImplicitReturns": true,              // Asegura que las funciones devuelvan lo que deben
+    "noUnusedLocals": true,                 // Limpieza de código
+    "noUnusedParameters": true              // Detecta parámetros sin uso
+  },
+  "include": ["src"],                       // Incluye solo carpeta src
+  "exclude": ["node_modules", "dist"]       // Ignora compilados y dependencias
+}
