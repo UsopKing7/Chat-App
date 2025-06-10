@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { routerSession } from '../controllers/login-register/login'
+import { routerSession } from '../controllers/login-register/session'
 
 export const midelware = Router()
 
