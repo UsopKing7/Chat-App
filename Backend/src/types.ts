@@ -56,6 +56,12 @@ export const SECRET: Secret = {
   SECRET: String(process.env.SECRET)
 }
 
+// Interface para Consulta de Mensajes
+export interface MensajesConsulta extends RowDataPacket {
+  id: `${string}-${string}-${string}-${string}-${string}`
+  contenido: string
+}
+
 // interface para req.user
 export interface UsuarioToken {
   username: string
