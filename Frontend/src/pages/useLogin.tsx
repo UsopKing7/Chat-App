@@ -15,11 +15,12 @@ export const useLogin = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password })
     })
 
     const data = await res.json()
     if (res.ok) {
+      localStorage.setItem('user', JSON.stringify(data.data))
       navigate(`/chat/${data.data.id}`)
     } else {
       alert(data.message + ' Error al iniciar sesión')

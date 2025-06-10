@@ -4,6 +4,9 @@ import { Login } from './pages/Login'
 import { Chat } from './pages/Chat'
 
 export const App = () => {
+const storedUser = localStorage.getItem('user')
+  const user = storedUser ? JSON.parse(storedUser) : null
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
@@ -11,7 +14,7 @@ export const App = () => {
         path="/chat/:id_usuario"
         element={
           <RutaProtegida>
-            <Chat />
+            <Chat id_usuario={user.id} username={user.username} />
           </RutaProtegida>
         }
       />
