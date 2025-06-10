@@ -19,5 +19,10 @@
   },
   "dependencies": {
     "express": "5.1.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }
