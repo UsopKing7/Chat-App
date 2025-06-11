@@ -1,4 +1,3 @@
-import { RowDataPacket } from "mysql2"
 
 // Interface para el Registro
 export interface Register {
@@ -13,7 +12,7 @@ export interface Login {
 }
 
 // Interface para la consulta de usuarios
-export interface UsuarioConsulta extends RowDataPacket{
+export interface UsuarioConsulta {
   id: `${string}-${string}-${string}-${string}-${string}`
   username: string
   password: string
@@ -57,7 +56,7 @@ export const SECRET: Secret = {
 }
 
 // Interface para Consulta de Mensajes
-export interface MensajesConsulta extends RowDataPacket {
+export interface MensajesConsulta {
   id: `${string}-${string}-${string}-${string}-${string}`
   contenido: string
 }
