@@ -14,17 +14,27 @@ app.use(express.json())
 
 const server = http.createServer(app)
 
+const whitelist = [
+  'http://localhost:5173',
+  'https://chat-app-ochre-zeta.vercel.app'
+]
+
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (!origin || whitelist.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true
   })
 )
 
-
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: whitelist,
     credentials: true
   }
 })
