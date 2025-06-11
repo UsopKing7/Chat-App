@@ -85,7 +85,7 @@ io.on('connection', async (socket) => {
     console.log(`Usuario desconectado: ${socket.id} (Usuario: ${id_usuario})`)
     try {
       await pool.query(
-        'UPDATE sesiones SET desconectado_en = CURRENT_TIMESTAMP WHERE ID = ?',
+        'UPDATE sesiones SET desconectado_en = CURRENT_TIMESTAMP WHERE ID = $1',
         [socket.data.id_sesion]
       )
     } catch (error) {
@@ -96,7 +96,7 @@ io.on('connection', async (socket) => {
 
 server.listen(PORT.port, '0.0.0.0', () => {
   console.table({
-    url: `http://0.0.0.0:${PORT.port}`,
+    url: `http://0.0.0.0:${PORT}`,
     websocket: true
   })
 })
