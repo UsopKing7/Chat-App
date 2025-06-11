@@ -20,7 +20,7 @@ routerSession.post('/register', async (req: Request, res: Response) => {
     const vRegistro: Register = validacionRegister.parse(req.body)
     const hashPassword = await bcrypt.hash(vRegistro.password, SAL.sal)
 
-    const { rows: usuarioExiste} = await pool.query<UsuarioConsulta>(
+    const { rows: usuarioExiste } = await pool.query<UsuarioConsulta>(
       'SELECT * FROM usuarios WHERE username = $1',
       [vRegistro.username]
     )
@@ -32,10 +32,10 @@ routerSession.post('/register', async (req: Request, res: Response) => {
       return
     }
 
-    await pool.query('INSERT INTO usuarios (username, password) VALUES ($1,$2)', [
-      vRegistro.username,
-      hashPassword
-    ])
+    await pool.query(
+      'INSERT INTO usuarios (username, password) VALUES ($1,$2)',
+      [vRegistro.username, hashPassword]
+    )
 
     res.status(201).json({
       message: 'Usuario creado correctamente'
@@ -85,16 +85,17 @@ routerSession.post('/login', async (req: Request, res: Response) => {
 
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production', // solo true en producción con HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // 'lax' para desarrollo
       maxAge: 1000 * 60 * 60 * 2
     })
+
     res.status(200).json({
       message: 'Login exitoso',
       data: {
         username: usuario.username,
         id: usuario.id
-      },
+      }
     })
   } catch (error) {
     console.log(error)
@@ -111,7 +112,7 @@ routerSession.post('/logout', async (_req, res) => {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict'
   })
-  
+
   res.status(200).json({ message: 'Session serrada correctamente' })
 })
 routerSession.get('/me', verificarToken, (req, res) => {
