@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export const useLogin = () => {
+export const useLogin = (
+  setUser: (user: { id: string; username: string }) => void
+) => {
   const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -21,6 +23,7 @@ export const useLogin = () => {
     const data = await res.json()
     if (res.ok) {
       localStorage.setItem('user', JSON.stringify(data.data))
+      setUser(data.data)
       navigate(`/chat/${data.data.id}`)
     } else {
       alert(data.message + ' Error al iniciar sesión')

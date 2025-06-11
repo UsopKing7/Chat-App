@@ -1,29 +1,24 @@
-import { useLogin } from './useLogin'
+import { useRegister } from './useRegister'
 import '../styles/Login-Registes.css'
-import { Link } from 'react-router-dom';
 
-interface Props {
-  setUser: (user: { id: string; username: string }) => void
-}
-
-export const Login = ({ setUser }: Props) => {
-  const { username, password, setUsername, setPassword, handleLogin: login } = useLogin(setUser)
-
+export const Register = () => {
+  const { username, handleRegister, password, setPassword, setUsername,volver } =
+    useRegister()
 
   return (
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1 className="login-title">Iniciar Sesión</h1>
+          <h1 className="login-title">Registro de usuario</h1>
           <p className="login-subtitle">Chat en tiempo real</p>
         </div>
 
-        <form onSubmit={login} className="login-form">
+        <form onSubmit={handleRegister} className="login-form">
           <div className="input-group">
             <input
               type="text"
               className="login-input"
-              placeholder=" "
+              placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -35,24 +30,20 @@ export const Login = ({ setUser }: Props) => {
             <input
               type="password"
               className="login-input"
-              placeholder=" "
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label className="input-label">Contraseña</label>
+            <label className="input-label">Usuario</label>
           </div>
 
           <button type="submit" className="login-button">
-            <span>Ingresar</span>
+            <span>Registrar</span>
           </button>
-
-          <div className="login-footer">
-            <p className="register-text">¿No tienes cuenta?</p>
-            <Link to="/register" className="register-link">
-              Regístrate
-            </Link>
-          </div>
+          <button onClick={volver} className="login-button">
+            <span>Cancelar</span>
+          </button>
         </form>
       </div>
     </div>

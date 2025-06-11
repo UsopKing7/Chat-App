@@ -4,9 +4,10 @@ import { io, Socket } from 'socket.io-client'
 interface Mensaje {
   id_usuario: string
   contenido: string
+  username: string
 }
 
-export const useChat = (id_usuario: string) => {
+export const useChat = (id_usuario: string, username: string) => {
   const [mensajes, setMensaje] = useState<Mensaje[]>([])
   const socketRef = useRef<Socket | null>(null)
 
@@ -43,7 +44,7 @@ export const useChat = (id_usuario: string) => {
 
   const enviarMensaje = (contenido: string) => {
     if (!contenido.trim()) return
-    const nuevoMensaje: Mensaje = { id_usuario, contenido }
+    const nuevoMensaje: Mensaje = { id_usuario, contenido, username }
     socketRef.current?.emit('chat:mensaje', nuevoMensaje)
   }
 

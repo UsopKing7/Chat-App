@@ -1,23 +1,35 @@
+// App.tsx
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { RutaProtegida } from './routers/RutaProtegida'
 import { Login } from './pages/Login'
 import { Chat } from './pages/Chat'
+import { Register } from './pages/Register'
 
 export const App = () => {
-const storedUser = localStorage.getItem('user')
-  const user = storedUser ? JSON.parse(storedUser) : null
+  const [user, setUser] = useState(() => {
+    const stored = localStorage.getItem('user')
+    return stored ? JSON.parse(stored) : null
+  })
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Login setUser={setUser} />} />
       <Route
         path="/chat/:id_usuario"
         element={
           <RutaProtegida>
-            <Chat id_usuario={user.id} username={user.username} />
+            {user && (
+              <Chat
+                key={user.id}
+                id_usuario={user.id}
+                username={user.username}
+              />
+            )}
           </RutaProtegida>
         }
       />
+      <Route path="/register" element={<Register />} />
     </Routes>
   )
 }

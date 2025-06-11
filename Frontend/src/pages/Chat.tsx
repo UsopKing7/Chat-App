@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Chat = ({ id_usuario, username }: Props) => {
-  const { mensajes, enviarMensaje } = useChat(id_usuario)
+  const { mensajes, enviarMensaje } = useChat(id_usuario, username)
   const [input, setInput] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,7 +26,7 @@ export const Chat = ({ id_usuario, username }: Props) => {
           height: 300,
           overflowY: 'auto',
           border: '1px solid #ccc',
-          padding: 10,
+          padding: 10
         }}
       >
         {mensajes.map((m, i) => (
@@ -37,10 +37,10 @@ export const Chat = ({ id_usuario, username }: Props) => {
                 m.id_usuario === id_usuario ? '#daf8cb' : '#f1f0f0',
               marginBottom: 8,
               padding: 6,
-              borderRadius: 4,
+              borderRadius: 4
             }}
           >
-            <strong>{m.id_usuario === id_usuario ? 'Tú' : m.id_usuario}:</strong>{' '}
+            <strong>{m.id_usuario === id_usuario ? 'Tú' : m.username}:</strong>{' '}
             {m.contenido}
           </div>
         ))}
