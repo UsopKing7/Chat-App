@@ -11,7 +11,7 @@ export const useLogin = (
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const res = await fetch('https://chat-app-nkta.onrender.com/api/login', {
+    const res = await fetch('https://chat-app-cl4v.onrender.com/api/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -41,7 +41,7 @@ export function useAuthStatus() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch('https://chat-app-nkta.onrender.com/api/verificar-token', {
+        const res = await fetch('https://chat-app-cl4v.onrender.com/api/verificar-token', {
           method: 'GET',
           credentials: 'include'
         })
