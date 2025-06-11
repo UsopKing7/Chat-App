@@ -35,7 +35,7 @@ export const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label className="input-label">Usuario</label>
+            <label className="input-label">Register</label>
           </div>
 
           <button type="submit" className="login-button">
