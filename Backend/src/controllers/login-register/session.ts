@@ -105,6 +105,15 @@ routerSession.post('/login', async (req: Request, res: Response) => {
   }
 })
 
+routerSession.post('/logout', async (_req, res) => {
+  res.clearCookie('access_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  })
+  
+  res.status(200).json({ message: 'Session serrada correctamente' })
+})
 routerSession.get('/me', verificarToken, (req, res) => {
   res.json({ user: req.user })
 })
