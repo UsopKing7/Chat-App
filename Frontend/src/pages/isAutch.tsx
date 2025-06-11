@@ -6,7 +6,7 @@ export const useAuth = () => {
   useEffect(() => {
     const verificarAuth = async () => {
       try {
-        const res = await fetch("http://0.0.0.0:3333/api/me", {
+        const res = await fetch("https://chat-app-nkta.onrender.com/api/me", {
           credentials: "include" 
         })
 

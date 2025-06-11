@@ -36,7 +36,7 @@ export const Chat = ({ id_usuario, username }: Props) => {
   }
 
   const handleLogout = async () => {
-    const res = await fetch('http://localhost:3333/api/logout', {
+    const res = await fetch('https://chat-app-nkta.onrender.com/api/logout', {
       method: 'POST',
       credentials: 'include'
     })

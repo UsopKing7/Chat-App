@@ -9,7 +9,7 @@ export const useRegister = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const res = await fetch('http://localhost:3333/api/register', {
+    const res = await fetch('https://chat-app-nkta.onrender.com/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -12,7 +12,7 @@ export const useChat = (id_usuario: string, username: string) => {
   const socketRef = useRef<Socket | null>(null)
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:3333', {
+    socketRef.current = io('https://chat-app-nkta.onrender.com', {
       query: { id_usuario }
     })
 
@@ -27,7 +27,7 @@ export const useChat = (id_usuario: string, username: string) => {
   useEffect(() => {
     const fetchMensajes = async () => {
       try {
-        const res = await fetch('http://localhost:3333/api/mensajes', {
+        const res = await fetch('https://chat-app-nkta.onrender.com/api/mensajes', {
           method: 'GET',
           credentials: 'include'
         })
