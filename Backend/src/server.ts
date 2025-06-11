@@ -53,8 +53,8 @@ io.on('connection', async (socket) => {
   console.log(`Usuario conectado ${socket.id} (usuario: ${id_usuario})`)
 
   try {
-    const [result] = await pool.query(
-      'INSERT INTO sesiones (id_usuario) VALUES (?)',
+    const { rows: result } = await pool.query(
+      'INSERT INTO sesiones (id_usuario) VALUES ($1)',
       [id_usuario]
     )
 

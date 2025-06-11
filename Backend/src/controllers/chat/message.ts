@@ -9,7 +9,7 @@ export const guardarMensaje = async (id_usuario: string, contenido: string) => {
       contenido
     })
     await pool.query(
-      'INSERT INTO mensajes (id_usuario, contenido) VALUES (?,?)',
+      'INSERT INTO mensajes (id_usuario, contenido) VALUES ($1,$2)',
       [vMensaje.id_usuario, vMensaje.contenido]
     )
   } catch (error) {

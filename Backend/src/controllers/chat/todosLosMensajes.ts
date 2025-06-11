@@ -10,7 +10,7 @@ routerMensajes.get(
   verificarToken,
   async (_req: Request, res: Response) => {
     try {
-      const [mensajes] = await pool.query<MensajesConsulta[]>(
+      const { rows: mensajes } = await pool.query<MensajesConsulta>(
         `SELECT mensajes.id_usuario, mensajes.contenido, mensajes.enviado_en, usuarios.username
    FROM mensajes
    JOIN usuarios ON mensajes.id_usuario = usuarios.id

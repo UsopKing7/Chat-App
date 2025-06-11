@@ -20,8 +20,8 @@ routerSession.post('/register', async (req: Request, res: Response) => {
     const vRegistro: Register = validacionRegister.parse(req.body)
     const hashPassword = await bcrypt.hash(vRegistro.password, SAL.sal)
 
-    const [usuarioExiste] = await pool.query<UsuarioConsulta[]>(
-      'SELECT * FROM usuarios WHERE username = ?',
+    const { rows: usuarioExiste} = await pool.query<UsuarioConsulta>(
+      'SELECT * FROM usuarios WHERE username = $1',
       [vRegistro.username]
     )
 
@@ -32,7 +32,7 @@ routerSession.post('/register', async (req: Request, res: Response) => {
       return
     }
 
-    await pool.query('INSERT INTO usuarios (username, password) VALUES (?,?)', [
+    await pool.query('INSERT INTO usuarios (username, password) VALUES ($1,$2)', [
       vRegistro.username,
       hashPassword
     ])
@@ -51,8 +51,8 @@ routerSession.post('/register', async (req: Request, res: Response) => {
 routerSession.post('/login', async (req: Request, res: Response) => {
   try {
     const vLogin: Login = validacionLogin.parse(req.body)
-    const [usuarioExiste] = await pool.query<UsuarioConsulta[]>(
-      'SELECT * FROM usuarios WHERE username = ?',
+    const { rows: usuarioExiste } = await pool.query<UsuarioConsulta>(
+      'SELECT * FROM usuarios WHERE username = $1',
       [vLogin.username]
     )
 

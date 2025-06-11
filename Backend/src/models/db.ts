@@ -1,10 +1,10 @@
-import { createPool } from 'mysql2/promise'
+import { Pool } from 'pg'
 import env from 'dotenv'
 import pc from 'picocolors'
 
 env.config()
 
-export const pool = createPool({
+export const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
   user: process.env.DB_USER,
@@ -16,7 +16,7 @@ export const pool = createPool({
 const verificarConeccion = async () => {
   const dbname = process.env.DB_NAME
   try {
-    const connection = await pool.getConnection()
+    const connection = await pool.connect()
     console.log( pc.blue(`[+] conneccion a la base de datos completa "${dbname}"`))
     connection.release()
   } catch (error) {
