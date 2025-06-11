@@ -1,25 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ES2020",                     // Mejor compatibilidad moderna
-    "module": "commonjs",                   // Para Node.js con require
-    "lib": ["ES2020"],                      // Librerías modernas disponibles
-    "esModuleInterop": true,                // Para importar módulos CommonJS (como Express o ws)
-    "moduleResolution": "node",             // Resolución estilo Node.js
-    "outDir": "./build",                    // Carpeta de salida compilada
-    "rootDir": "./src",                     // Carpeta fuente
-    "strict": true,                         // Habilita todas las comprobaciones estrictas
-    "noImplicitAny": true,                  // Obliga a tipar todo (evita errores ocultos)
-    "strictNullChecks": true,               // Evita problemas con `null` y `undefined`
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,                   // Acelera compilación
-    "resolveJsonModule": true,              // Para importar JSONs
-    "allowSyntheticDefaultImports": true,   // Importación amigable
-    "sourceMap": true,                      // Para debugging con VSCode
-    "noFallthroughCasesInSwitch": true,     // Evita errores en switches
-    "noImplicitReturns": true,              // Asegura que las funciones devuelvan lo que deben
-    "noUnusedLocals": true,                 // Limpieza de código
-    "noUnusedParameters": true              // Detecta parámetros sin uso
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": ["src"],                       // Incluye solo carpeta src
-  "exclude": ["node_modules", "build"]       // Ignora compilados y dependencias
+  "include": ["src"],
+  "exclude": ["node_modules", "build"]
 }
