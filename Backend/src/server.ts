@@ -94,7 +94,7 @@ io.on('connection', async (socket) => {
   })
 })
 
-server.listen(PORT.port, '0.0.0.0', () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.table({
     url: `http://0.0.0.0:${PORT}`,
     websocket: true

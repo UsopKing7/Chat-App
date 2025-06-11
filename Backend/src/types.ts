@@ -32,13 +32,9 @@ export const formatError = (error: unknown) => ({
 })
 
 // interface para el Port del server backedn
-interface Port {
-  port: number
-}
 
-export const PORT: Port = {
-  port: Number(process.env.PORT) || 3333
-}
+
+export const PORT = Number(process.env.PORT) || 3333
 
 // Interface para validar mensajes
 export interface Mensaje {
