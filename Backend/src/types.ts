@@ -8,7 +8,6 @@ export interface Register {
 // Interface para el Login
 export interface Login {
   username: string
-  password: string
 }
 
 // Interface para la consulta de usuarios

@@ -1,11 +1,8 @@
 import { Router, Request, Response } from 'express'
 import { pool } from '../../models/db'
-import bcrypt from 'bcrypt'
-import { validacionLogin, validacionRegister } from '../../routers/validaciones'
+import { validacionLogin } from '../../routers/validaciones'
 import {
   Login,
-  Register,
-  SAL,
   SECRET,
   UsuarioConsulta,
   formatError
@@ -15,39 +12,6 @@ import { verificarToken } from '../../routers/cerifitoken'
 
 export const routerSession = Router()
 
-routerSession.post('/register', async (req: Request, res: Response) => {
-  try {
-    const vRegistro: Register = validacionRegister.parse(req.body)
-    const hashPassword = await bcrypt.hash(vRegistro.password, SAL.sal)
-
-    const { rows: usuarioExiste } = await pool.query<UsuarioConsulta>(
-      'SELECT * FROM usuarios WHERE username = $1',
-      [vRegistro.username]
-    )
-
-    if (usuarioExiste.length > 0) {
-      res.status(404).json({
-        message: 'El nombre de usuario ya existe'
-      })
-      return
-    }
-
-    await pool.query(
-      'INSERT INTO usuarios (username, password) VALUES ($1,$2)',
-      [vRegistro.username, hashPassword]
-    )
-
-    res.status(201).json({
-      message: 'Usuario creado correctamente'
-    })
-  } catch (error) {
-    res.status(500).json({
-      message: 'Error al crear el usuario',
-      error: formatError(error)
-    })
-  }
-})
-
 routerSession.post('/login', async (req: Request, res: Response) => {
   try {
     const vLogin: Login = validacionLogin.parse(req.body)
@@ -56,25 +20,15 @@ routerSession.post('/login', async (req: Request, res: Response) => {
       [vLogin.username]
     )
 
-    if (usuarioExiste.length === 0) {
-      res.status(404).json({
-        message: 'El nombre de usuario no existe'
-      })
-      return
-    }
+    let usuario = usuarioExiste[0]
 
-    const usuario = usuarioExiste[0]
+    if (!usuario) {
+      const nuevoUsuario = await pool.query(
+        'INSERT INTO usuarios (username) VALUES ($1)',
+        [vLogin.username]
+      )
 
-    const verificarPassword = await bcrypt.compare(
-      vLogin.password,
-      usuario.password
-    )
-
-    if (!verificarPassword) {
-      res.status(404).json({
-        message: 'La contraseña o usuario incorrectos'
-      })
-      return
+      usuario = nuevoUsuario.rows[0]
     }
 
     const token = jwt.sign(
