@@ -1,12 +1,7 @@
 import { Router, Request, Response } from 'express'
 import { pool } from '../../models/db'
 import { validacionLogin } from '../../routers/validaciones'
-import {
-  Login,
-  SECRET,
-  UsuarioConsulta,
-  formatError
-} from '../../types'
+import { Login, SECRET, UsuarioConsulta, formatError } from '../../types'
 import jwt from 'jsonwebtoken'
 import { verificarToken } from '../../routers/cerifitoken'
 
@@ -23,8 +18,8 @@ routerSession.post('/login', async (req: Request, res: Response) => {
     let usuario = usuarioExiste[0]
 
     if (!usuario) {
-      const nuevoUsuario = await pool.query(
-        'INSERT INTO usuarios (username) VALUES ($1) RETURNING',
+      const nuevoUsuario = await pool.query<UsuarioConsulta>(
+        'INSERT INTO usuarios (username) VALUES ($1) RETURNING id, username',
         [vLogin.username]
       )
 
