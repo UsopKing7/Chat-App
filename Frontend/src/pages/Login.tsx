@@ -1,14 +1,12 @@
 import { useLogin } from './useLogin'
 import '../styles/Login-Registes.css'
-import { Link } from 'react-router-dom';
 
 interface Props {
   setUser: (user: { id: string; username: string }) => void
 }
 
 export const Login = ({ setUser }: Props) => {
-  const { username, password, setUsername, setPassword, handleLogin: login } = useLogin(setUser)
-
+  const { username, setUsername, handleLogin: login } = useLogin(setUser)
 
   return (
     <div className="login-container">
@@ -31,28 +29,9 @@ export const Login = ({ setUser }: Props) => {
             <label className="input-label">Usuario</label>
           </div>
 
-          <div className="input-group">
-            <input
-              type="password"
-              className="login-input"
-              placeholder=" "
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <label className="input-label">Contraseña</label>
-          </div>
-
           <button type="submit" className="login-button">
             <span>Ingresar</span>
           </button>
-
-          <div className="login-footer">
-            <p className="register-text">¿No tienes cuenta?</p>
-            <Link to="/register" className="register-link">
-              Regístrate
-            </Link>
-          </div>
         </form>
       </div>
     </div>

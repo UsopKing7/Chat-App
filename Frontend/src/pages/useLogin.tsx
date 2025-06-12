@@ -6,7 +6,6 @@ export const useLogin = (
 ) => {
   const navigate = useNavigate()
   const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,7 +16,7 @@ export const useLogin = (
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username })
     })
 
     const data = await res.json()
@@ -30,7 +29,7 @@ export const useLogin = (
     }
   }
 
-  return { setUsername, setPassword, username, password, handleLogin }
+  return { setUsername, username, handleLogin }
 }
 
 // Hook separado para el estado de autenticación
