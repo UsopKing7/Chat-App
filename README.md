@@ -22,10 +22,10 @@ Esta aplicación soporta múltiples usuarios sin necesidad de registro vía corr
 
 ## Tecnologías usadas
 
-- **Frontend:** React, CSS puro.
-- **Backend:** Node.js, Express, Socket.IO.
-- **Base de datos:** SQLite (o la que hayas usado).
-- **Herramientas:** Vite (si usaste para el frontend), Nodemon para desarrollo.
+- **Frontend:** React + Vite + TypeScript, CSS puro.
+- **Backend:** Node.js, Express, TypeScript, Socket.IO.
+- **Base de datos:** PostgreSQL.
+- **Herramientas:** Vite, VsCode, IA.
 
 ---
 
