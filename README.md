@@ -65,7 +65,7 @@ Esta aplicación soporta múltiples usuarios sin necesidad de registro vía corr
    npm run dev
    ```
 
-6. Abre en tu navegador `http://localhost:5173` (o el puerto que indique Vite).
+6. Abre en tu navegador `http://localhost:5173` (Por defecto es 5173).
 
 ---
 
