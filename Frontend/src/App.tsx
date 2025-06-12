@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom'
 import { RutaProtegida } from './routers/RutaProtegida'
 import { Login } from './pages/Login'
 import { Chat } from './pages/Chat'
-import { Register } from './pages/Register'
 
 export const App = () => {
   const [user, setUser] = useState(() => {
@@ -29,7 +28,6 @@ export const App = () => {
           </RutaProtegida>
         }
       />
-      <Route path="/register" element={<Register />} />
     </Routes>
   )
 }
