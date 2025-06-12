@@ -24,11 +24,12 @@ routerSession.post('/login', async (req: Request, res: Response) => {
 
     if (!usuario) {
       const nuevoUsuario = await pool.query(
-        'INSERT INTO usuarios (username) VALUES ($1)',
+        'INSERT INTO usuarios (username) VALUES ($1) RETURNING',
         [vLogin.username]
       )
 
       usuario = nuevoUsuario.rows[0]
+      return
     }
 
     const token = jwt.sign(
