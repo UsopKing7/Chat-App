@@ -55,7 +55,7 @@ Esta aplicación soporta múltiples usuarios sin necesidad de registro vía corr
 
    ```bash
    cd ../backend
-   npm run tsc && npm run dev
+   npm run build && npm start
    ```
 
 5. Ejecuta el frontend:
