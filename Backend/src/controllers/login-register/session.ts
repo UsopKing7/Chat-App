@@ -29,7 +29,6 @@ routerSession.post('/login', async (req: Request, res: Response) => {
       )
 
       usuario = nuevoUsuario.rows[0]
-      return
     }
 
     const token = jwt.sign(
